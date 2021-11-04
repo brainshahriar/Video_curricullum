@@ -16,7 +16,7 @@
       <li>Dashboard</li>
     </ul>
   </div>
-  <!-- Card -->
+  <!-- Card --> 
   <div class="row">
     <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
       <div class="widget-card widget-bg1">

@@ -469,6 +469,92 @@ public function CourseInfo($id)
 
           return view('/backend/pages/courses.course_curricullum',compact('course'));
         }
+
+        public function sectionEditStore(Request $request)
+        {
+          $section_id = $request->section_id;
+
+          Section::findOrFail($section_id)->Update([
+              'order' => $request->order,
+              'course_id'=>$request->course_id,
+              'section_name' => $request->section_name,
+             ]);
+             $notification=array(
+              'message'=>'Section Update Success',
+              'alert-type'=>'success'
+          );
+          return Redirect()->back()->with($notification);
+        }
+
+        public function sectionDelete($section_id)
+        {
+          Section::findOrFail($section_id)->delete();
+          $notification=array(
+          'message'=>'Delete Success',
+          'alert-type'=>'success'
+      );
+      return Redirect()->back()->with($notification);
+        }
+
+        public function lessonEditStore(Request $request)
+        {
+          $course_id = $request->course_id;
+          $section_id= $request->section_id;
+      
+          $video_type=$request->video_type;
+          $vimeo_id= $request->vimeo_id;
+          $youtube_url= $request-> youtube_url;
+          $lesson_title=$request->lesson_title;
+          $preview=$request->preview;
+          $course_image =$request->file('file');
+          $filename=null;
+          $uploadedFile = $request->file('file');
+          $oldfilename = $course['files'] ?? 'demo.jpg';
+      
+          $oldfileexists = Storage::disk('public')->exists('courses/admin/courses/files/' . $oldfilename);
+      
+          if ($uploadedFile !== null) {
+      
+              if ($oldfileexists && $oldfilename != $uploadedFile) {
+                  //Delete old file
+                  Storage::disk('public')->delete('courses/admin/courses/files/' . $oldfilename);
+              }
+              $filename_modified = str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+              $filename = time() . '_' . $filename_modified;
+      
+              Storage::disk('public')->putFileAs(
+                  'courses/admin/courses/files/',
+                  $uploadedFile,
+                  $filename
+              );
+      
+              $data['file'] = $filename;
+          } elseif (empty($oldfileexists)) {
+             // throw new GeneralException('Course image not found!');
+              //return redirect()->back()->with(['flash_danger' => 'User image not found!']);
+              //file check in storage
+      
+          }
+      
+          $course = Lesson::find($request->id);
+          $course->course_id = $course_id;
+          $course->section_id= $section_id;
+          $course->video_type= $video_type;
+          $course->vimeo_id= $vimeo_id;
+          $course-> youtube_url= $youtube_url;
+          $course-> lesson_title= $lesson_title;
+          $course->preview=$preview;
+          $course->fi= $filename;
+
+      
+          $course->save();
+          $notification=array(
+              'message'=>'Update successfully!!!',
+              'alert-type'=>'success'
+          );
+          return Redirect()->back()->with($notification);
+        }
+
         public function subcategoryWiseCourseShow($subcat_id)
            {
              $course= Course::where('course_category_id',$subcat_id)->orderBy('id','DESC')->latest()->limit(2)->paginate(9);

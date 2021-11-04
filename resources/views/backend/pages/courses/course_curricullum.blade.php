@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-header">
 
-                    <h4 class="card-title">{{$course->course_title}}</h4>
+                    <h4 class="card-title">{{$course->course_title}}</h4> 
                 </div>
                 <div class="card-body">
 
@@ -75,9 +75,10 @@
                                             <span onclick="addLesson({{$section->id}})"><i
                                                     class="fas fa-file-upload addLesson"></i></span>
                                             @include('backend.modals.lesson_addmodal')
-                                            <a href="#"><i class="fas fa-edit"></i></a>
-                                            <a href="#"><i class="fas fa-trash"></i></a>
-
+                                            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#SectionEditModal{{ $section->id }}"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-primary" href="{{ url('home/section/delete/'.$section->id) }}" id="delete"><i class="fas fa-trash"></i></a>
+                                            @include('backend.modals.section_editmodal')
+                           
                                         </div>
                                         <div
                                             id="collapse{{$section->id}}"
@@ -101,6 +102,7 @@
                                                             <th>Duration</th>
                                                             <th>Preview</th>
                                                             <th>Files</th>
+                                                            <th>Action</th>
 
                                                         </tr>
                                                         </thead>
@@ -144,8 +146,11 @@
 
                                                                     {{$lesson->files}}
                                                                 </td>
-
-
+                                                                <td>
+                                                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#LessonEditModal{{ $lesson->id }}"><i class="fas fa-edit"></i></a>
+                                                                   
+                                                                </td>
+                                                                @include('backend.modals.lesson_editmodal')
                                                             </tr>
 
                                                         @endforeach

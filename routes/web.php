@@ -94,6 +94,13 @@ Route::post('/home/course_details/view/evolution/certificate_preview', [UserEnro
 Route::get('/home/courses/{subcat_id}', [CourseController::class,'subcategoryWiseCourseShow']);
 Route::get('/home/classroom_courses/{subcat_id}', [ClassroomCourseController::class,'subcategoryWiseClassroomCourseShow']);
 
+//edit $ delete section
+Route::post('/home/section/update', [CourseController::class,'sectionEditStore'])->name('secton-update');
+Route::get('/home/section/delete/{section_id}', [CourseController::class,'sectionDelete']);
+
+//edit lesson
+Route::post('/home/lesson/update', [CourseController::class,'lessonEditStore'])->name('lesson-update');
+
 
 //blogs routes frontend
 Route::get('/all-blogs', [BlogsController::class,'index'])->name('all-blogs');

@@ -10,9 +10,8 @@ use App\Models\Section;
 class Lesson extends Model
 {
     use HasFactory;
-    use HasFactory;
-
-    protected $table ="lessons";
+    protected $guarded=[];
+    // protected $table ="lessons";
     public function course(){
       return $this->belongsTo(Course::class, 'course_id','id');
     }

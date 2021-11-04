@@ -12,18 +12,9 @@
       <li>{{$course->course_title}} </li>
     </ul>
   </div>
-
   <a href="#" class="btn btn-primary">View Course Details</a>
 
   </div>
   <br/>
-
-  
-
-
-
-
-
-
 
 @endsection
