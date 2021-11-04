@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('lesson-update') }}" method="POST">
+          <form action="{{ route('lesson-update') }}" method="POST" enctype="multipart/form-data">
             @csrf
                 <input type="hidden" name="id" value="{{ $lesson->id }}">
               <input type="hidden" name="section_id" value="{{$section->id}}">
@@ -55,8 +55,8 @@
        </div>
               <div class="form-group">
                   <label for="exampleFormControlFile1">Lesson Files</label>
-                  <input type="file" name="file" class="form-control-file" id="files"
-                         onchange="previewImage(this)" value={{ $lesson->file }}>
+                  <input type="file" name="lesson_file" class="form-control-file" id="files"
+                         >
               </div>
   
         </div>
