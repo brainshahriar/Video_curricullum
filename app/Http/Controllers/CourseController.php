@@ -558,6 +558,15 @@ public function CourseInfo($id)
                     return Redirect()->back()->with($notification);
 
   }
+  public function lessonDelete($lesson_id)
+  {
+    Lesson::findOrFail($lesson_id)->delete();
+    $notification=array(
+    'message'=>'Delete Success',
+    'alert-type'=>'success'
+);
+return Redirect()->back()->with($notification);
+  }
         
 
         public function subcategoryWiseCourseShow($subcat_id)

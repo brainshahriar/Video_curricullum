@@ -148,7 +148,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#LessonEditModal{{ $lesson->id }}"><i class="fas fa-edit"></i></a>
-                                                                   
+                                                                    <a class="btn btn-danger" href="{{ url('home/lesson/delete/'.$lesson->id) }}" id="delete"><i class="fas fa-trash"></i></a>
                                                                 </td>
                                                                 @include('backend.modals.lesson_editmodal')
                                                             </tr>

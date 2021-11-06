@@ -98,8 +98,9 @@ Route::get('/home/classroom_courses/{subcat_id}', [ClassroomCourseController::cl
 Route::post('/home/section/update', [CourseController::class,'sectionEditStore'])->name('secton-update');
 Route::get('/home/section/delete/{section_id}', [CourseController::class,'sectionDelete']);
 
-//edit lesson
+//edit & delete lesson
 Route::post('/home/lesson/update', [CourseController::class,'lessonEditStore'])->name('lesson-update');
+Route::get('/home/lesson/delete/{lesson_id}', [CourseController::class,'lessonDelete']);
 
 
 //blogs routes frontend
