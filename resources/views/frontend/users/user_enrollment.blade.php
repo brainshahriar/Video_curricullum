@@ -76,11 +76,11 @@ font-size:15px;
                                                                             <ul>
                                                                                 @if(count($section->lessons) > 0)
                                                                                     @foreach($section->lessons as $lesson)
-                                                                                        <ul>
-                                                                                            <div class="list-group" id="b">
-                                                                                            <a href="#"  onclick="return play('{{(strtolower($lesson->video_type)  == 'youtube')?$lesson->youtube_url : $lesson->vimeo_id}}','{{$lesson->video_type}}');" class="font-weight-bold" id="a" >
+                                                                                        <ul id="ulActive">
+                                            
+                                                                                            <a href="#"  onclick="return play('{{(strtolower($lesson->video_type)  == 'youtube')?$lesson->youtube_url : $lesson->vimeo_id}}','{{$lesson->video_type}}');" class="font-weight-bold"  >
                                                                                             <i class="fas fa-play-circle"></i>   {{$lesson->lesson_title}} <br> <span></span></a>
-                                                                                            </div>
+                                                                                 
                                                                                             @if($lesson->files)
                                                                                             <i class="fas fa-file-pdf" style="color: red"> </i> <a href="{{asset("storage/courses/admin/courses/files/$lesson->files")}}" target="_blank" title="{{$lesson->lesson_title}} File">{{$lesson->lesson_title}} File</a>
                                                                                             @else
@@ -427,12 +427,14 @@ font-size:15px;
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-$('a').on('click',function(event){
-event.preventDefault();
-$('.list-group a').removeClass('active');
-$(this).addClass('active')
-})
+    $(document).ready(function(){
+    $('#ulActive a').click(function(){
+    $('#ulActive a').removeClass("active")
+        $(this).toggleClass("active");
+    });
+});
 </script>
+
 
 
 
