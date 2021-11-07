@@ -102,7 +102,7 @@
                                                             <th>Duration</th>
                                                             <th>Preview</th>
                                                             <th>Files</th>
-                                                            <th>Action</th>
+                                                            <th>Action</th>ss
 
                                                         </tr>
                                                         </thead>
