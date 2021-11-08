@@ -39,6 +39,17 @@ class AdminCertificateController extends Controller
     }
     public function view()
     {
-        return view('hello');
+        $mpdf=new \Mpdf\Mpdf([
+        'default_font_size'=>12,
+        'default_font'=>'nikosh',
+    ]);
+    $mpdf->WriteHTML($this->pdfHTML());
+
+    $mpdf->Output();
     }
+    public function pdfHTML(){
+        $output="<h1>নাই</h1>";
+        return $output;
+    }
+
 }
