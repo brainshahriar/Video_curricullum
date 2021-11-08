@@ -162,6 +162,12 @@
                                  <span class="ttr-label">FaQs</span>
                                </a>
                            </li>
+                           <li>
+                            <a href="{{ route('certificate-generate') }}" class="ttr-material-button">
+                              <span class="ttr-icon"><i class="ti-comments"></i></span>
+                                      <span class="ttr-label">Certificate Generate</span>
+                                    </a>
+                                </li>
 
       </ul>
       <!-- sidebar menu end -->
