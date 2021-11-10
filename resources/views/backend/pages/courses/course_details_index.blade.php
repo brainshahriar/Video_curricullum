@@ -291,7 +291,7 @@
                                 aria-controls="collapse{{$section->id}}"
                               >
                                 <h6 class="curriculum-list" style="color:#ca2128; text-transform:uppercase;" >{{$section->section_name}}
-                                    <p class="pull-right">                                  <i class="ti-time"></i>
+                                    <p class="pull-right"><i class="ti-time"></i>
                                   <span class="value"> 
                                    @php
                                       $section_sum=App\Models\Lesson::where('section_id',$section->id)->sum('duration');
@@ -338,8 +338,9 @@
 
                                         </div>
                                         <div class="col-sm-2">
-                                          <i class="far fa-clock"></i>
+                                          
                                           @if($lesson->youtube_url)
+                                          <i class="far fa-clock"></i>
                                           @php
                                           $timeFormat = new DateTime('1970-01-01');
                                          $timeFormat->add(new DateInterval($time));
