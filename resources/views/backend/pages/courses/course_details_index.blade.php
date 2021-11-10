@@ -9,7 +9,7 @@
 <style>
   .img i {
   top: 15%;
-  left: 50%;
+  left: 50%; 
   position: absolute;
   transform: translate(-50%, -50%);
 }

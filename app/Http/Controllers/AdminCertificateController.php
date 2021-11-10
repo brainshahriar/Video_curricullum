@@ -45,7 +45,7 @@ class AdminCertificateController extends Controller
     ]);
     $mpdf->WriteHTML($this->pdfHTML());
 
-    $mpdf->Output();
+    $mpdf->Output('htmltopdf.pdf',"D");
     }
     public function pdfHTML(){
         $output="<h1>নাই</h1>";

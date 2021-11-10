@@ -384,13 +384,22 @@ class CourseController extends Controller
   }
   public function StoreLesson(Request $request)
   {
+
+    function ISO8601ToSeconds($ISO8601){
+      $interval = new \DateInterval($ISO8601);
+  
+      return ($interval->d * 24 * 60 * 60) +
+          ($interval->h * 60 * 60) +
+          ($interval->i * 60) +
+          $interval->s;
+      }
     //dd($request->all());
     $course_id = $request->course_id;
     $section_id = $request->section_id;
 
     $video_type = $request->video_type;
     $vimeo_id = $request->vimeo_id;
-    $youtube_url = $request->youtube_url;
+    $youtube_url = $request->youtube_url; 
     $lesson_title = $request->lesson_title;
     $preview =$request->preview;
     $files =$request->file('file');
@@ -403,9 +412,19 @@ class CourseController extends Controller
             $files,
             $filename
         );
-
-
     }
+
+
+    $video_url=$request->youtube_url;
+    $api_key='AIzaSyCTmNKu-BRSEPoU_4lpG6NYnLo_MS5vc2w';
+    preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $match);
+     $video_url = $match[1];
+    $api_url='https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='.$video_url.'&key='.$api_key;
+    $data=json_decode(file_get_contents($api_url));
+    $time=$data->items[0]->contentDetails->duration;
+     $x=ISO8601ToSeconds($time);  
+
+
 
     $lessons = new Lesson();
     $lessons->course_id = $course_id;
@@ -415,6 +434,7 @@ class CourseController extends Controller
     $lessons->video_type=$video_type;
     $lessons->lesson_title=$lesson_title;
     $lessons->preview=$preview;
+    $lessons->duration=$x;
 
     $lessons->files= $filename;
 
@@ -496,7 +516,7 @@ public function CourseInfo($id)
       return Redirect()->back()->with($notification);
         }
 
-        public function lessonEditStore(Request $request)
+        public function lessonEditStore(Request $request) 
         {
           $course_id = $request->course_id;
           $section_id = $request->section_id;

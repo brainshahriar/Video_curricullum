@@ -13,7 +13,7 @@
                     @csrf
 
                     <input type="hidden" name="course_id" value="{{$course->id}}">
-
+ 
                     <input type="hidden" name="section_id" id="section_id">
 
                     <div class="form-group">
