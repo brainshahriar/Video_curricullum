@@ -232,7 +232,8 @@
                 <!--  <li><i class="ti-user"></i> <span class="label">Students</span> <span class="value">32</span></li>-->
                 <!--  <li><i class="ti-check-box"></i> <span class="label">Assessments</span> <span class="value">Yes</span></li>-->
                  <li><i class="ti-time"></i> <span class="label">Duration</span> <span class="value">
-                   @php
+                   <strong>
+                    @php
                     $total_duration = $data;
                     $H = floor($total_duration / 3600);
                     $i = ($total_duration / 60) % 60;
@@ -245,7 +246,9 @@
                   {
                   echo sprintf("%02d:%02d:%02d H", $H, $i, $s);
                   }
-                  @endphp</span></li> 
+                  @endphp
+                 </strong>
+                  </span></li> 
               </ul>
               </div>
               <div class="col-md-12 col-lg-8">
