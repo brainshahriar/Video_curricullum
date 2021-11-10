@@ -3,7 +3,12 @@
 
 @section('content')
 
-
+@php
+$total_duration = $data;
+$H = floor($total_duration / 3600);
+$i = ($total_duration / 60) % 60;
+$s = $total_duration % 60; 
+@endphp 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
@@ -79,6 +84,7 @@
 
 
         @if($course->video_type==0)
+        
         <div class="preview-video-box">
 
               <a class="venobox" data-autoplay="true" data-vbtype="video" href="{{ $course->preview_id }}" data-gall="myGallery">
@@ -228,7 +234,17 @@
                   <li><i class="ti-smallcap"></i> <span class="label">Language</span> <span class="value">{{$course->course_details->language}}</span></li>
                 <!--  <li><i class="ti-user"></i> <span class="label">Students</span> <span class="value">32</span></li>-->
                 <!--  <li><i class="ti-check-box"></i> <span class="label">Assessments</span> <span class="value">Yes</span></li>-->
-                </ul>
+                 <li><i class="ti-time"></i> <span class="label">Duration</span> <span class="value">@php
+                  if($H==NULL)
+                  {
+                  echo sprintf("%02d:%02d H", $i, $s);
+                  }
+                  else
+                  {
+                  echo sprintf("%02d:%02d:%02d H", $H, $i, $s);
+                  }
+                  @endphp</span></li> 
+              </ul>
               </div>
               <div class="col-md-12 col-lg-8">
                 <h5 class="m-b5">Course Description</h5>
@@ -269,7 +285,19 @@
                                 aria-expanded="true"
                                 aria-controls="collapse{{$section->id}}"
                               >
-                                <h6 class="curriculum-list" style="color:#ca2128; text-transform:uppercase;" >{{$section->section_name}}</h6>
+                                <h6 class="curriculum-list" style="color:#ca2128; text-transform:uppercase;" >{{$section->section_name}}
+                                  <h6 class="pull-right">
+                                  <i class="ti-time"></i><span class="value">                                   @php
+                                    $section_sum=App\Models\Lesson::where('section_id',$section->id)->sum('duration');
+                                    $total_ = $section_sum;
+                                    $Hours = floor($total_ / 3600);
+                                    $Minuites = ($total_ / 60) % 60;
+                                    $Seconds = $total_ % 60; 
+                                    echo sprintf("%02d:%02d:%02d Hours", $Hours, $Minuites, $Seconds);
+                                    @endphp</span>
+
+                                  </h6>
+                                </h6>
                               </div>
 
                               <div
@@ -282,23 +310,45 @@
                                   <ul>
                                     @if(count($section->lessons) > 0)
                                     @foreach($section->lessons as $lesson)
-
-
-
-
+                                    @if($lesson->youtube_url)
+                                    <?php
+                                    $video_url=$lesson->youtube_url;
+                                     $api_key='AIzaSyCTmNKu-BRSEPoU_4lpG6NYnLo_MS5vc2w';
+                                     preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $match);
+                                        $video_url = $match[1];
+                                        $api_url='https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='.$video_url.'&key='.$api_key;
+                                        $data=json_decode(file_get_contents($api_url));
+                                        $time=$data->items[0]->contentDetails->duration;
+                                    ?>
+                                    @endif
                                       <div class="curriculum-list-box">
                                         <div class="row">
 
-                                      <div class="col-sm-10">
+                                      <div class="col-sm-8">
 
 
                                          <strong><i class="fas fa-play-circle"></i> {{$lesson->lesson_title}}</strong>
 
-
+                                        </div>
+                                        <div class="col-sm-2">
+                                          <i class="far fa-clock"></i>
+                                          @if($lesson->youtube_url)
+                                          @php
+                                          $timeFormat = new DateTime('1970-01-01');
+                                         $timeFormat->add(new DateInterval($time));
+                                         if (strlen($time)>8)
+                                         {
+                                             echo $timeFormat->format('H:i:s');
+                                     }   else {
+                                         echo $timeFormat->format('H:i:s');
+                                     }
+                                     @endphp
+                                     @endif
                                         </div>
                                         <div class="col-sm-2">
                                           @if($lesson->preview==1)
                                           @if($lesson->video_type=="Youtube")
+                
                                           <a class="venobox" data-autoplay="true" data-vbtype="video" href="{{ $lesson->youtube_url }}" data-gall="Gallery23">
                                             <strong><i  class="fas fa-play-circle fa-2x icn" title="Play"></i></strong>
                                             </a>
@@ -308,6 +358,7 @@
                                           </a>
                                             @endif
                                             @else
+                                            
                                           <i class="fas fa-lock" title="Lock"></i>
                                           @endif
                                         </div>

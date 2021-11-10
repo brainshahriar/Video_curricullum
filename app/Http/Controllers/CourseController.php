@@ -320,10 +320,11 @@ class CourseController extends Controller
     $rating = CourseReview::where('course_id',$id)->where('status','approve')->avg('rating');
     $avgRating = number_format($rating,1);
     $trainer= Trainer::where('course_id',$id)->get();
+    $data=Lesson::where('course_id',$id)->sum('duration');
 
 
 
-    return view('/backend/pages/courses.course_details_index',compact('course_details','main_categories','course_categories','course','enrolled','courseReview','avgRating','trainer'));
+    return view('/backend/pages/courses.course_details_index',compact('course_details','main_categories','course_categories','course','enrolled','courseReview','avgRating','trainer','data'));
   }
 
   public function StoreSection(Request $request)
