@@ -118,8 +118,8 @@ class PortwalletController extends Controller
       //  dd($request->amount);
        $data = array(
            'order' => array(
-             //'amount' => 1,
-              'amount' => floatval($request->amount),
+             'amount' => 1,
+              //'amount' => floatval($request->amount),
                'currency' => 'BDT',
               // 'redirect_url' => 'https://globalskills.com.bd/portwallet/portwallet_verify_transaction/shopping_cart',
                'redirect_url' => URL::to('/portwallet/portwallet_verify_transaction/shopping_cart'),
@@ -188,7 +188,7 @@ class PortwalletController extends Controller
 
 
                 $data = new UserEnrollment();
-                $data->user_id          = $cart['user_id'];
+                $data->user_id          = Auth::id();
                 $data->course_id        = $cart['course_id'];
                 $data->regular_price    = $_GET['amount'];
                 $data->access           = 100;
