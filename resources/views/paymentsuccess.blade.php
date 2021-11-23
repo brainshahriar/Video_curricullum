@@ -30,57 +30,25 @@
 <!-- Page Content Box ==== -->
 <div class="content-block">
         <!-- About Us ==== -->
-        <div class="alert alert-success text-center" role="alert">
+        <div class="alert alert-info text-center" role="alert">
          <strong> Your Payment has been succesfully recieved! </strong>
         </div>
+
         <br>
+        <strong>
+            <div class="alert alert-light text-center" role="alert" id="secondsdisplay">
+            
+            </div>
+        </strong>
+<strong>
+    <img class="mx-auto d-block" src="https://th.bing.com/th/id/R.a463df1f4698fc59c7361cc89efe995c?rik=0tUGCJ%2bOuGIp8Q&pid=ImgRaw&r=0" alt="" height="20" width="20">
+
+</strong>
+<br>
         <div class="alert alert-dark text-center" role="alert">
-          Enjoy Your Course <strong><a href="http://localhost:8000/user_profile">Click Here</a></strong>
+          If you do not redirect within 5 Seconds <strong><a href="http://localhost:8000/user_profile">Click Here</a></strong>
         </div>
 
-
-
-  <div class="section-area content-inner section-sp1">
-            <div class="container">
-                <div class="section-content">
-                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                            <div class="counter-style-1">
-                                <div class="text-primary">
-                <span class="counter">100</span><span>+</span>
-              </div>
-              <span class="counter-text">Courses</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                            <div class="counter-style-1">
-              <div class="text-black">
-                <span class="counter">2500</span><span>+</span>
-              </div>
-              <span class="counter-text">Happy Clients</span>
-            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                            <div class="counter-style-1">
-              <div class="text-primary">
-                <span class="counter">500</span><span>+</span>
-              </div>
-              <span class="counter-text">Reviews</span>
-            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                            <div class="counter-style-1">
-              <div class="text-black">
-                <span class="counter">100</span><span>+</span>
-              </div>
-              <span class="counter-text">Countries</span>
-            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
   <!-- Our Status END ==== -->
   <!-- About Content ==== -->
   <div class="section-area section-sp2 bg-fix ovbl-dark join-bx text-center" style="background-image:url({{ asset('images/background/bg1.jpg')}});">
@@ -150,5 +118,23 @@
 
 
 
+@push('scripts')
 
+<script>
+
+
+var seconds=0;
+function displayseconds()
+{
+    seconds+=1;
+    document.getElementById("secondsdisplay").innerText="This Page Will Be Redirect After 5 Seconds "+seconds+" Seconds"
+}  
+setInterval(displayseconds,1000);
+function redirectpage()
+{
+    window.location="http://localhost:8000/user_profile";
+}
+setTimeout('redirectpage()',4000);
+</script> 
+@endpush
 @endsection

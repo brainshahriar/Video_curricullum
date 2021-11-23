@@ -201,7 +201,7 @@ class PortwalletController extends Controller
             );
             //session()->forget('cart');
             Cart::truncate();
-            return redirect('/carts')->with($notification);
+            return redirect('/paymentsuccess')->with($notification);
 
         }
 

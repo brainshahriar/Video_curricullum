@@ -343,3 +343,5 @@ Route::get('/admin/certificate', [AdminCertificateController::class,'index'])->n
 Route::post('/admin/store/certificate', [AdminCertificateController::class,'store'])->name('certificate-store')->middleware('is_admin');
 
 Route::get('/see', [AdminCertificateController::class,'view']);;
+
+Route::get('/paymentsuccess', [CourseController::class,'paymentSuccess'])->middleware();

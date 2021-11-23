@@ -18,9 +18,9 @@
               <div class="form-group">
                   <label for="custom select">Video Type</label>
                   <select class="form-control" name="video_type" value={{ $lesson->video_type }}>
-                      <option label="Choose"></option>
+                    <option value="Youtube">Youtube</option>
                       <option value="Vimeo">Vimeo</option>
-                      <option value="Youtube">Youtube</option>
+                     
                   </select>
               </div>
 
@@ -47,10 +47,10 @@
               <div class="form-group">
            <label for="custom select">Preview</label>
            <select class="form-control" name="preview" value={{ $lesson->preview }}>
-               <option label="Choose"></option>
+            <option value="0">Not Preview</option>
 
                <option value="1">Preview</option>
-               <option value="0">Not Preview</option>
+            
            </select>
        </div>
               <div class="form-group">
