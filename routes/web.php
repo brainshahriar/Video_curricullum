@@ -338,10 +338,10 @@ Route::post('/admin/faqs/store', [FaqController::class,'store'])->name('store')-
 Route::get('/admin/delete-faq/{faq_id}', [FaqController::class,'deleteFaq'])->middleware('is_admin');
 
 //certificate generate
-
 Route::get('/admin/certificate', [AdminCertificateController::class,'index'])->name('certificate-generate')->middleware('is_admin');
 Route::post('/admin/store/certificate', [AdminCertificateController::class,'store'])->name('certificate-store')->middleware('is_admin');
 
 Route::get('/see', [AdminCertificateController::class,'view']);;
 
-Route::get('/paymentsuccess', [CourseController::class,'paymentSuccess'])->middleware();
+Route::get('/paymentsuccess', [CourseController::class,'paymentSuccess']);
+

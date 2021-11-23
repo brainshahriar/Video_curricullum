@@ -31,7 +31,9 @@
 <div class="content-block">
         <!-- About Us ==== -->
         <div class="alert alert-info text-center" role="alert">
-         <strong> Your Payment has been succesfully recieved! </strong>
+            @if(Auth::user())
+         <strong>Dear {{ Auth::user()->name }} Your Payment has been succesfully recieved! </strong>
+         @endif
         </div>
 
         <br>
